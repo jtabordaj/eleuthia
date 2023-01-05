@@ -9,7 +9,7 @@ access_token_secret <- "H76PEEOwOCy3Qgl8MwKeBoB4VXuRJhBT2nQ1zZrPry1at"
 token <- doToken()
 
 # grab tweet datasets and clean it
-main <- rbind(grabTweets(3000, "Inflacion"), grabTweets(3000, "Peso Colombiano")) %>%
+main <- rbind(grabTweets(3000, "inflacion en colombia"), grabTweets(3000, "peso colombiano")) %>%
     select(all_of(varNames))
 
 # load trained word set
@@ -28,7 +28,8 @@ keywords <- keywordsTweets %>%
 # score tweets
 
 afinnedTweets <- main 
-afinnedTweets$sentimentScore <- apply(afinnedTweets, 1, scoreTweets)
+afinnedTweets <- afinnedTweets %>%  mutate(sentimentScore = apply(afinnedTweets, 1, scoreTweets))
+
 
 # END OF FILE
 ## CODENAME: ELEUTHIA ##
