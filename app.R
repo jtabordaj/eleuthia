@@ -9,7 +9,7 @@ access_token_secret <- "H76PEEOwOCy3Qgl8MwKeBoB4VXuRJhBT2nQ1zZrPry1at"
 token <- doToken()
 
 # grab tweet datasets and clean it
-main <- rbind(grabTweets(3000, "inflacion en colombia"), grabTweets(3000, "peso colombiano")) %>%
+main <- rbind(grabTweets(5000, "Petro"), grabTweets(5000, "ELN")) %>%
     select(all_of(varNames))
 
 # load trained word set
