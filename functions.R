@@ -33,11 +33,11 @@ scoreWord <- function(w){
     score <- afinn$points[wordOfInterest]
     return (score)
 }
-scoreTweets <- function(text){
-  words <- unlist(strsplit(text, " "))
-  words <- as.vector(words)
-  scores <- sapply(words, Score_word)
+scoreTweets <- function(t){
+  tokenWords <- unlist(strsplit(t, " "))
+  tokenVector <- as.vector(tokenWords)
+  scores <- sapply(tokenWords, scoreWord)
   scores <- unlist(scores)
-  Score_tweet <- sum(scores)
-  return (Score_tweet)
+  tweetScore <- sum(scores)
+  return (tweetScore)
 }

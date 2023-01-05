@@ -16,21 +16,19 @@ main <- rbind(grabTweets(3000, "Inflacion"), grabTweets(3000, "Peso Colombiano")
 afinn <- read_xlsx("./data/afinn.xlsx") %>% as.data.frame() 
 
 # get keywords
-affinedTweets <- main %>%
+keywordsTweets <- main %>%
     unnest_tokens(input = "full_text", output = "palabra") %>%
     inner_join(afinn, ., by = "palabra")  %>% 
     mutate(type = ifelse(points > 0, "Positiva", "Negativa"))
 
-keywords <- affinedTweets %>%
+keywords <- keywordsTweets %>%
     count(palabra, type, sort = TRUE) %>%
     top_n(15) %>% 
     mutate(palabra=reorder(palabra,n))
-
 # score tweets
 
-# unlist(strsplit(main$full_text, " "))
-
-
+afinnedTweets <- main 
+afinnedTweets$sentimentScore <- apply(afinnedTweets, 1, scoreTweets)
 
 # END OF FILE
 ## CODENAME: ELEUTHIA ##
