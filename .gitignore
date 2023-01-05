@@ -1,6 +1,7 @@
 # Project files
 tokens.txt
 /legacy
+/.vscode
 
 # History files
 .Rhistory

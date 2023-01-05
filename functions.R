@@ -23,7 +23,21 @@ doToken <- function(){
   access_secret = access_token_secret)
 }
 
-grabTweets <- function(subsetNumber, keyword){
-    assign(paste("subset",subsetNumber, sep=""),
-    search_tweets(keyword, n=1000, include_rts = FALSE)
+grabTweets <- function(sampleSize, keyword){
+    assign(paste("subset",keyword, sep=""),
+    search_tweets(keyword, n=sampleSize, include_rts = FALSE)
 )}
+
+scoreWord <- function(w){
+    wordOfInterest <- afinn$palabra==w
+    score <- afinn$points[wordOfInterest]
+    return (score)
+}
+scoreTweets <- function(text){
+  words <- unlist(strsplit(text, " "))
+  words <- as.vector(words)
+  scores <- sapply(words, Score_word)
+  scores <- unlist(scores)
+  Score_tweet <- sum(scores)
+  return (Score_tweet)
+}
