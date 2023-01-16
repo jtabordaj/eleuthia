@@ -30,6 +30,7 @@ keywords <- keywordsTweets %>%
 afinnedTweets <- main 
 afinnedTweets <- afinnedTweets %>%  mutate(sentimentScore = apply(afinnedTweets, 1, scoreTweets))
 
+# may be of interest: https://shiny.rstudio.com/articles/html-ui.html
 
 # END OF FILE
 ## CODENAME: ELEUTHIA ##
