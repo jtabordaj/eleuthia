@@ -7,11 +7,12 @@ library(tidytext)
 library(ggplot2)
 
 varNames <- c("created_at",
-    "id", 
-    "full_text", 
+    "user_id", 
+    "status_id",
+    "screen_name",
     "text",
-    "retweet_count", 
-    "favorite_count"
+    "favorite_count",
+    "retweet_count" 
 )
 
 doToken <- function(){

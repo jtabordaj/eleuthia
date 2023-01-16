@@ -9,15 +9,19 @@ access_token_secret <- "H76PEEOwOCy3Qgl8MwKeBoB4VXuRJhBT2nQ1zZrPry1at"
 token <- doToken()
 
 # grab tweet datasets and clean it
-main <- rbind(grabTweets(5000, "Petro"), grabTweets(5000, "ELN")) %>%
-    select(all_of(varNames))
+main <- rbind(
+    grabTweets(2500, "Peajes en Colombia")#, 
+    grabTweets(2500, "Petro")
+)
+main <- main %>% select(any_of(varNames))
+main <- main %>% mutate(text = tolower(text))
 
 # load trained word set
 afinn <- read_xlsx("./data/afinn.xlsx") %>% as.data.frame() 
 
 # get keywords
 keywordsTweets <- main %>%
-    unnest_tokens(input = "full_text", output = "palabra") %>%
+    unnest_tokens(input = "text", output = "palabra") %>%
     inner_join(afinn, ., by = "palabra")  %>% 
     mutate(type = ifelse(points > 0, "Positiva", "Negativa"))
 
@@ -30,7 +34,7 @@ keywords <- keywordsTweets %>%
 afinnedTweets <- main 
 afinnedTweets <- afinnedTweets %>%  mutate(sentimentScore = apply(afinnedTweets, 1, scoreTweets))
 
-# may be of interest: https://shiny.rstudio.com/articles/html-ui.html
+# may be of interest: https://shiny.rstudio.com/articles/basics.html
 
 # END OF FILE
 ## CODENAME: ELEUTHIA ##
