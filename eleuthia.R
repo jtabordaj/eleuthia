@@ -1,6 +1,6 @@
 ## CODENAME: ELEUTHIA ##
 # START OF FILE
-
+source('./functions.R')
 # auths
 api_key <- "SCBRcB3yXBX7DQv5PiQyBBeAW"
 api_secret_key <- "lfqh7IULSZrVrjW3OqO6QFdI0d9WtEpogx7HqWhXHOL5zTh7C0"
@@ -10,8 +10,8 @@ token <- doToken()
 
 # grab tweet datasets and clean it
 main <- rbind(
-    grabTweets(2500, "Peajes en Colombia")#, 
-    grabTweets(2500, "Petro")
+    grabTweets(2500, "Ultra Air"), 
+    grabTweets(2500, "Viva Air")
 )
 main <- main %>% select(any_of(varNames))
 main <- main %>% mutate(text = tolower(text))
@@ -33,6 +33,8 @@ keywords <- keywordsTweets %>%
 
 afinnedTweets <- main 
 afinnedTweets <- afinnedTweets %>%  mutate(sentimentScore = apply(afinnedTweets, 1, scoreTweets))
+
+hist(afinnedTweets$sentimentScore)
 
 # may be of interest: https://shiny.rstudio.com/articles/basics.html
 

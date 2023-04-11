@@ -16,7 +16,7 @@ varNames <- c("created_at",
 )
 
 doToken <- function(){
-    create_token(
+  create_token(
   app = "APP",
   consumer_key = api_key,
   consumer_secret = api_secret_key,
